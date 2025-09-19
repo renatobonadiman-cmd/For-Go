@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Interativa - For-Go Tech</title>
+    <!-- Chosen Palette: For-Go Clean Tech -->
+    <!-- Application Structure Plan: A single-page application with a top navigation bar for quick access to key thematic sections: The Challenge, Our Solution, Proven Results, Technology, and Partnership. This structure allows non-linear exploration, enabling decision-makers to focus on areas of interest. The flow starts with the problem (Challenge), presents the answer (Solution), provides evidence (Results), details the mechanics (Technology), and ends with the business proposition (Partnership). This narrative is more persuasive and user-friendly than the original report's Q&A format. -->
+    <!-- Visualization & Content Choices: The core quantitative data (+15% revenue, -10% costs) is visualized using a Chart.js bar chart for immediate impact (Goal: Compare -> Bar Chart -> Justification: Clearly shows before/after impact). Architectural diagrams are recreated using interactive HTML/CSS with hover tooltips to explain complex flows simply (Goal: Organize -> Interactive Diagram -> Justification: More engaging and less overwhelming than static images). Key stats and features are presented in cards for scannability (Goal: Inform -> Cards -> Justification: Breaks down dense info). The entire structure is designed for exploration. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .forgo-accent {
+            color: #008B8B;
+        }
+        .forgo-bg-accent {
+            background-color: #008B8B;
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #008B8B;
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .tech-diagram-item {
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .tech-diagram-item:hover {
+            transform: scale(1.05);
+        }
+        .tech-diagram-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+            position: absolute;
+            bottom: 105%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+        .tech-diagram-item:hover .tech-diagram-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-gray-800">FOR</span><span class="forgo-accent">GO</span><span class="text-gray-800"> TECH</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#desafio" class="nav-link text-gray-600">O Desafio</a>
+                <a href="#solucao" class="nav-link text-gray-600">Nossa Solução</a>
+                <a href="#resultados" class="nav-link text-gray-600">Resultados</a>
+                <a href="#tecnologia" class="nav-link text-gray-600">Tecnologia</a>
+                <a href="#parceria" class="nav-link text-gray-600">Parceria</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-white py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">Inovação e Eficiência na Gestão Pública</h1>
+                <p class="mt-4 text-lg md:text-xl text-gray-500 max-w-3xl mx-auto">Uma proposta interativa para transformar a relação entre governos e cidadãos através da tecnologia.</p>
+            </div>
+        </section>
+
+        <!-- Section 1: O Desafio -->
+        <section id="desafio" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">O Desafio da Gestão Municipal Moderna</h2>
+                    <p class="mt-4 text-gray-600 max-w-3xl mx-auto">As prefeituras enfrentam uma pressão constante para otimizar a arrecadação e melhorar os serviços ao cidadão. Processos manuais e sistemas fragmentados criam barreiras significativas que impedem o progresso.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <div class="w-16 h-16 forgo-bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span>⚙️</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Ineficiência Operacional</h3>
+                        <p class="text-gray-500">Burocracia, alto custo e processos manuais na emissão e conciliação de tributos.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <div class="w-16 h-16 forgo-bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span>👥</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Experiência do Cidadão</h3>
+                        <p class="text-gray-500">Longas filas, canais de atendimento limitados e poucas opções de pagamento digital.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <div class="w-16 h-16 forgo-bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span>📊</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Falta de Visibilidade</h3>
+                        <p class="text-gray-500">Dificuldade em monitorar a receita em tempo real para decisões estratégicas.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <div class="w-16 h-16 forgo-bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span>🛡️</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Riscos e Compliance</h3>
+                        <p class="text-gray-500">Vulnerabilidade a fraudes e desafios de adequação a regulações como a LGPD.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Nossa Solução -->
+        <section id="solucao" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Nossa Solução: <span class="forgo-accent">Orquestrador Multi-Liquidante</span></h2>
+                    <p class="mt-4 text-gray-600 max-w-3xl mx-auto">Apresentamos uma plataforma integrada que moderniza toda a jornada de arrecadação de tributos, desde a emissão até a conciliação, de forma 100% digital, multicanal e segura.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-6 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+                        <h3 class="text-xl font-bold mb-2">Plataforma Multicanal</h3>
+                        <p class="text-gray-600">Pagamentos onde e como o cidadão preferir: Web, App iOS/Android, Totens e POS.</p>
+                    </div>
+                    <div class="p-6 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+                        <h3 class="text-xl font-bold mb-2">Orquestrador de Pagamentos</h3>
+                        <p class="text-gray-600">Gestão unificada de PIX, Boletos e Cartões de forma transparente e eficiente.</p>
+                    </div>
+                    <div class="p-6 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+                        <h3 class="text-xl font-bold mb-2">Business Intelligence (BI)</h3>
+                        <p class="text-gray-600">Dashboards interativos para monitoramento da arrecadação em tempo real.</p>
+                    </div>
+                    <div class="p-6 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+                        <h3 class="text-xl font-bold mb-2">Segurança Avançada</h3>
+                        <p class="text-gray-600">Criptografia, Autenticação Multifator (MFA) e total conformidade com a LGPD.</p>
+                    </div>
+                    <div class="p-6 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+                        <h3 class="text-xl font-bold mb-2">Aplicativo White Label</h3>
+                        <p class="text-gray-600">Um app personalizado com a identidade visual e as necessidades do seu município.</p>
+                    </div>
+                    <div class="p-6 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+                        <h3 class="text-xl font-bold mb-2">Comunicação Integrada</h3>
+                        <p class="text-gray-600">Notificações Push, Chatbot com IA e mensageria para engajar o cidadão.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Resultados Comprovados -->
+        <section id="resultados" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Resultados Comprovados</h2>
+                    <p class="mt-4 text-gray-600 max-w-3xl mx-auto">Nossa tecnologia não é apenas uma promessa, ela entrega valor tangível. O case da Prefeitura de Manaus é um exemplo claro do impacto positivo que geramos.</p>
+                </div>
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2 w-full">
+                        <h3 class="text-2xl font-bold mb-4">Case de Sucesso: <span class="forgo-accent">Prefeitura de Manaus</span></h3>
+                        <p class="text-gray-600 mb-6">O lançamento do aplicativo "Manaus Atende Digital" revolucionou a forma como os cidadãos interagem com a prefeitura, gerando resultados expressivos em tempo recorde e ampla cobertura na mídia.</p>
+                        <div class="flex space-x-8">
+                            <div>
+                                <p class="text-4xl font-bold forgo-accent">+15%</p>
+                                <p class="text-gray-500">no aumento da arrecadação</p>
+                            </div>
+                            <div>
+                                <p class="text-4xl font-bold forgo-accent">-10%</p>
+                                <p class="text-gray-500">na redução de custos operacionais</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 w-full bg-white p-8 rounded-lg shadow-lg">
+                        <div class="chart-container">
+                            <canvas id="manausChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Tecnologia -->
+        <section id="tecnologia" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold">Tecnologia e Segurança</h2>
+                    <p class="mt-4 text-gray-600 max-w-3xl mx-auto">Construída sobre uma arquitetura robusta, flexível e segura, nossa plataforma garante escalabilidade e conformidade, seja em nuvem ou on-premise.</p>
+                </div>
+                <h3 class="text-2xl font-bold text-center mb-8">Fluxo do <span class="forgo-accent">Orquestrador Multi-liquidante</span></h3>
+                <div class="relative flex flex-col md:flex-row items-center justify-between w-full max-w-5xl mx-auto space-y-8 md:space-y-0 md:space-x-4">
+                    <div class="tech-diagram-item text-center p-4 bg-gray-100 rounded-lg shadow-md w-48">
+                        <p class="font-bold">1. Contribuinte</p>
+                        <p class="text-sm text-gray-500">Inicia Pagamento</p>
+                        <div class="tech-diagram-tooltip bg-gray-800 text-white text-xs rounded py-1 px-2">Acesso via App, Web, Totem ou POS</div>
+                    </div>
+                    <div class="text-2xl text-gray-300 hidden md:block">&rarr;</div>
+                    <div class="tech-diagram-item text-center p-4 bg-gray-100 rounded-lg shadow-md w-48">
+                        <p class="font-bold">2. For-Go Pay</p>
+                        <p class="text-sm text-gray-500">Valida e Processa</p>
+                        <div class="tech-diagram-tooltip bg-gray-800 text-white text-xs rounded py-1 px-2">Mecanismos KYC/PLD e orquestração de pagamentos</div>
+                    </div>
+                     <div class="text-2xl text-gray-300 hidden md:block">&rarr;</div>
+                    <div class="tech-diagram-item text-center p-4 bg-gray-100 rounded-lg shadow-md w-48">
+                        <p class="font-bold">3. Conciliador</p>
+                        <p class="text-sm text-gray-500">Confirma Transação</p>
+                        <div class="tech-diagram-tooltip bg-gray-800 text-white text-xs rounded py-1 px-2">Integra com Bancos, SCDs, IPs e Adquirentes</div>
+                    </div>
+                     <div class="text-2xl text-gray-300 hidden md:block">&rarr;</div>
+                    <div class="tech-diagram-item text-center p-4 bg-gray-100 rounded-lg shadow-md w-48">
+                        <p class="font-bold">4. Sistema Prefeitura</p>
+                        <p class="text-sm text-gray-500">Baixa Débito</p>
+                        <div class="tech-diagram-tooltip bg-gray-800 text-white text-xs rounded py-1 px-2">Atualização automática e em tempo real no STM</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Parceria -->
+        <section id="parceria" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">Um Modelo de Parceria Estratégica <span class="forgo-accent">com a IMA</span></h2>
+                <p class="mt-4 text-gray-600 max-w-3xl mx-auto mb-8">Propomos mais do que um produto; buscamos uma parceria estratégica. Nossa solução pode ser customizada no modelo White Label, integrando-se perfeitamente ao portfólio de serviços da IMA, com governança compartilhada e foco em gerar valor para os municípios.</p>
+                <div class="flex flex-wrap justify-center gap-4 text-lg">
+                    <span class="bg-teal-100 text-teal-800 py-2 px-5 rounded-full font-semibold">Flexibilidade (White Label)</span>
+                    <span class="bg-teal-100 text-teal-800 py-2 px-5 rounded-full font-semibold">Governança Compartilhada</span>
+                    <span class="bg-teal-100 text-teal-800 py-2 px-5 rounded-full font-semibold">Customização e Integração</span>
+                    <span class="bg-teal-100 text-teal-800 py-2 px-5 rounded-full font-semibold">Resultados Mútuos</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <h3 class="text-2xl font-bold">Vamos construir o futuro da gestão pública juntos.</h3>
+            <p class="mt-4">Entre em contato para agendarmos uma demonstração.</p>
+            <div class="mt-6">
+                <p class="font-semibold">Renato Bonadiman, CEO</p>
+                <p class="text-gray-400">renato@forgotech.com.br | +55 92 98129-2555</p>
+                <p class="mt-2 forgo-accent font-semibold">www.forgotech.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart.js implementation
+            const ctx = document.getElementById('manausChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Aumento da Arrecadação', 'Redução de Custos Operacionais'],
+                        datasets: [{
+                            label: 'Variação Percentual (%)',
+                            data: [15, -10],
+                            backgroundColor: [
+                                'rgba(0, 139, 139, 0.6)',
+                                'rgba(220, 53, 69, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 139, 139, 1)',
+                                'rgba(220, 53, 69, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += context.parsed.y + '%';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Active Nav Link on Scroll
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
